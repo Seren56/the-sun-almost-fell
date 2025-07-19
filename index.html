@@ -138,3 +138,32 @@
 </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8" /><title>Test</title></head>
+<body>
+<div id="chapter-select"></div>
+<div id="chapter-content">Select a chapter</div>
+<script>
+const chapters = {
+  1: { title: "Test Chapter", content: "<p>Test content.</p>", image: "", music: "" }
+};
+function createChapterButtons() {
+  const container = document.getElementById('chapter-select');
+  for (const [id, chapter] of Object.entries(chapters)) {
+    const btn = document.createElement('button');
+    btn.textContent = id + '. ' + chapter.title;
+    btn.onclick = () => loadChapter(id);
+    container.appendChild(btn);
+  }
+}
+function loadChapter(id) {
+  const chapter = chapters[id];
+  if (!chapter) return;
+  let html = `<h2>${chapter.title}</h2>` + chapter.content;
+  document.getElementById('chapter-content').innerHTML = html;
+}
+window.onload = createChapterButtons;
+</script>
+</body>
+</html>

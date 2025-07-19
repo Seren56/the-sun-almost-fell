@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Day the Sun Almost Fell</title>
+<style>
+  body {
+    background: radial-gradient(ellipse at center, #000010 0%, #000000 100%);
+    color: #eee;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  header {
+    text-align: center;
+    padding: 2rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffdd55;
+    text-shadow:
+      0 0 10px #ffdd55,
+      0 0 20px #ffbb33,
+      0 0 30px #ffaa00;
+  }
+  main {
+    flex: 1;
+    padding: 1rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  #chapter-select {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  button.chapter-btn {
+    background: #222233;
+    border: 1px solid #444466;
+    color: #fff;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease, color 0.3s ease;
+    min-width: 140px;
+  }
+  button.chapter-btn:hover, button.chapter-btn:focus {
+    background: #ffaa00;
+    color: #000;
+    outline: none;
+  }
+  #chapter-content h2 {
+    color: #ffaa00;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  #chapter-content p {
+    line-height: 1.6;
+    font-size: 1.1rem;
+  }
+  .chapter-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 15px 0;
+    box-shadow: 0 0 20px #ffaa00aa;
+  }
+  .chapter-audio {
+    width: 100%;
+    margin-top: 10px;
+    outline: none;
+    filter: drop-shadow(0 0 5px #ffaa00cc);
+  }
+  footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #777;
+  }
+  @media (max-width: 500px) {
+    button.chapter-btn {
+      min-width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>The Day the Sun Almost Fell</header>
+
+<main>
+  <nav id="chapter-select" aria-label="Chapter Selection">
+    <!-- Buttons added dynamically -->
+  </nav>
+
+  <article id="chapter-content" tabindex="0">
+    <p>Select a chapter to begin the journey.</p>
+  </article>
+</main>
+
+<footer>
+  &copy; 2025 Seren & Friends Interactive Experience
+</footer>
+
+<script>
+const chapters = {
+  1: {
+    title: "The White Wolf Sleeps",
+    content: "<p>Seren and Jack's final moments together; the slow farewell.</p>",
+    image: "https://i.imgur.com/kjQNXSG.jpg",
+    music: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_5a58c9f3d8.mp3?filename=ambient-space-music-10536.mp3"
+  },
+  2: {
+    title: "The Warmth Fades",
+    content: "<p>Mourning. Seren withdraws. The stars remain indifferent.</p>",
+    image: "https://i.imgur.com/SA6MnC5.jpg",
+    music: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_70e57033f1.mp3?filename=calm-space-ambient-10529.mp3"
+  },
+  3: {
+    title: "The Event Horizon",
+    content: "<p>The black hole encounter; Seren is nearly lost.</p>",
+    image: "https://i.imgur.com/OMFMcay.jpg",
+    music: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_16d6f13c39.mp3?filename=dark-ambient-10535.mp3"
+  },
+  4: {
+    title: "The Day the Sun Almost Fell",
+    content: "<p>Sarah and Aedric intervene. Seren is saved, but broken.</p>",
+    image: "https://i.imgur.com/rms8MPf.jpg",
+    music: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_5a58c9f3d8.mp3?filename=ambient-space-music-10536.mp3"
+  },
+  5: {
+    title: "A Crown of Ash and Gold",
+    content: "<p>Debate. Blame. Healing. A fragile reunion forms.</p>",
+    image: "https://i.imgur.com/g47uiiT.jpg",
+    music: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_70e57033f1.mp3?filename=calm-space-ambient-10529.mp3"
+  },
+  6: {
+    title: "The Fractured Truce",
+    content: "<p>Aedric and Seren's confrontation; the wound between them deepens.</p>",
+    image: "https://i.imgur.com/2sg0ESU.jpg",
+    music: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_16d6f13c39.mp3?filename=dark-ambient-10535.mp3"
+  },
+  7: {
+    title: "Whispers of the White Wolf",
+    content: "<p>Seren hears Jack again. A nudge from memory steers his path.</p>",
+    image: "https://i.imgur.com/ssXa2WF.jpg",
+    music: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_5a58c9f3d8.mp3?filename=ambient-space-music-10536.mp3"
+  },
+  8: {
+    title: "The Newborn Sun",
+    content: "<p>Seren chooses to rise again. Transforms anew.</p>",
+    image: "https://i.imgur.com/SA6MnC5.jpg",
+    music: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_70e57033f1.mp3?filename=calm-space-ambient-10529.mp3"
+  },
+  9: {
+    title: "The Creator and the Created",
+    content: "<p>Final confrontation: Seren vs Aedric. Power meets purpose.</p>",
+    image: "https://i.imgur.com/OMFMcay.jpg",
+    music: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_16d6f13c39.mp3?filename=dark-ambient-10535.mp3"
+  },
+  10: {
+    title: "Kindling the Dawn",
+    content: "<p>The cosmos begins anew. Duty accepted, with a heart reshaped.</p>",
+    image: "https://i.imgur.com/rms8MPf.jpg",
+    music: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_5a58c9f3d8.mp3?filename=ambient-space-music-10536.mp3"
+  },
+  11: {
+    title: "The Sun That Remembered",
+    content: "<p>Seren, luminous and strong, carries all he's loved forward.</p>",
+    image: "https://i.imgur.com/g47uiiT.jpg",
+    music: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_70e57033f1.mp3?filename=calm-space-ambient-10529.mp3"
+  }
+};
+
+function createChapterButtons() {
+  const container = document.getElementById('chapter-select');
+  for (const [id, chapter] of Object.entries(chapters)) {
+    const btn = document.createElement('button');
+    btn.className = 'chapter-btn';
+    btn.textContent = id + '. ' + chapter.title;
+    btn.setAttribute('aria-label', `Select chapter ${id}: ${chapter.title}`);
+    btn.onclick = () => loadChapter(id);
+    container.appendChild(btn);
+  }
+}
+
+function loadChapter(id) {
+  const chapter = chapters[id];
+  if (!chapter) return;
+  let html = `<h2>${chapter.title}</h2>`;
+  html += chapter.content;
+  if (chapter.image) {
+    html += `<img src="${chapter.image}" alt="${chapter.title} image" class="chapter-image" />`;
+  }
+  if (chapter.music) {
+    html += `
+      <audio controls preload="none" class="chapter-audio" aria-label="Audio for ${chapter.title}">
+        <source src="${chapter.music}" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+    `;
+  }
+  document.getElementById('chapter-content').innerHTML = html;
+  document.getElementById('chapter-content').focus();
+}
+
+window.onload = () => {
+  createChapterButtons();
+};
+</script>
+
+</body>
+</html>

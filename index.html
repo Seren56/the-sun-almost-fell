@@ -1,169 +1,40 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>The Day the Sun Almost Fell</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
-  body {
-    margin: 0;
-    height: 100vh;
-    background: radial-gradient(ellipse at center, #000010 0%, #000000 100%);
-    overflow: hidden;
-    font-family: 'Playfair Display', serif;
-    color: #FFD369;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  h1 {
-    font-size: 3.5rem;
-    text-align: center;
-    text-shadow:
-      0 0 20px #FFD369,
-      0 0 40px #FFB347,
-      0 0 60px #FF9F00;
-  }
-  .subtitle {
-    font-size: 1.3rem;
-    margin: 1rem 0 3rem 0;
-    letter-spacing: 0.1em;
-    text-shadow: 0 0 8px #ffb347a0;
-  }
-  .start-button {
-    background: linear-gradient(90deg, #ffb347 0%, #ffd369 100%);
-    border: none;
-    border-radius: 30px;
-    padding: 1rem 3rem;
-    font-size: 1.25rem;
-    font-weight: 700;
-    cursor: pointer;
-    color: #2a1e00;
-    box-shadow: 0 0 30px #ffd369;
-    transition: all 0.3s ease;
-  }
-  .start-button:hover {
-    background: linear-gradient(90deg, #ffd369 0%, #ffb347 100%);
-    box-shadow: 0 0 40px #ff9f00;
-  }
-  .sun-glow {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #ffcc33, #ff6600);
-    filter: drop-shadow(0 0 15px #ffcc33);
-    animation: slowOrbit 30s linear infinite;
-    top: 50%;
-    left: 50%;
-    margin-top: -100px;
-    margin-left: -100px;
-    z-index: -1;
-  }
-  @keyframes slowOrbit {
-    0% { transform: rotate(0deg) translateX(150px) rotate(0deg); }
-    100% { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
-  }
-  .starfield {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    top: 0; left: 0;
-    z-index: -2;
-    background: transparent;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Day the Sun Almost Fell</title>
+  <style>
+    body {
+      background: radial-gradient(ellipse at center, #000010 0%, #000000 100%);
+      color: #eee;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 1rem;
+    }
+    #chapter-select button {
+      background: #222;
+      color: #fff;
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #chapter-content img {
+      max-width: 100%;
+      margin: 1em 0;
+    }
+    audio {
+      width: 100%;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
-  <canvas class="starfield" id="starfield"></canvas>
-  <div class="sun-glow" aria-hidden="true"></div>
-  <h1>The Day the Sun<br>Almost Fell</h1>
-  <div class="subtitle">Press Start to Begin</div>
-  <button class="start-button" id="startBtn" aria-label="Enter Story">✨ Enter Story</button>
+  <h1>The Day the Sun Almost Fell</h1>
+  <div id="chapter-select"></div>
+  <div id="chapter-content">Select a chapter</div>
 
-<script>
-  // Starfield canvas
-  const canvas = document.getElementById('starfield');
-  const ctx = canvas.getContext('2d');
-  let stars = [];
-  const starCount = 150;
-  let width, height;
-
-  function setup() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-    stars = [];
-    for (let i = 0; i < starCount; i++) {
-      stars.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radius: Math.random() * 1.2,
-        alpha: Math.random(),
-        speed: Math.random() * 0.02 + 0.005,
-      });
-    }
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, width, height);
-    stars.forEach(star => {
-      star.alpha += star.speed;
-      if(star.alpha >= 1 || star.alpha <= 0){
-        star.speed *= -1;
-      }
-      ctx.beginPath();
-      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(255, 255, 255, ' + star.alpha + ')';
-      ctx.shadowColor = 'rgba(255, 255, 255, ' + star.alpha + ')';
-      ctx.shadowBlur = 5;
-      ctx.fill();
-    });
-    requestAnimationFrame(draw);
-  }
-
-  window.addEventListener('resize', setup);
-  setup();
-  draw();
-
-  // Start button interaction
-  document.getElementById('startBtn').addEventListener('click', () => {
-    alert('The story begins... (prototype)');
-  });
-
-</script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head><meta charset="UTF-8" /><title>Test</title></head>
-<body>
-<div id="chapter-select"></div>
-<div id="chapter-content">Select a chapter</div>
-<script>
-const chapters = {
-  1: { title: "Test Chapter", content: "<p>Test content.</p>", image: "", music: "" }
-};
-function createChapterButtons() {
-  const container = document.getElementById('chapter-select');
-  for (const [id, chapter] of Object.entries(chapters)) {
-    const btn = document.createElement('button');
-    btn.textContent = id + '. ' + chapter.title;
-    btn.onclick = () => loadChapter(id);
-    container.appendChild(btn);
-  }
-}
-function loadChapter(id) {
-  const chapter = chapters[id];
-  if (!chapter) return;
-  let html = `<h2>${chapter.title}</h2>` + chapter.content;
-  document.getElementById('chapter-content').innerHTML = html;
-}
-window.onload = createChapterButtons;
-</script>
+  <script src="chapters.js"></script>
 </body>
 </html>
